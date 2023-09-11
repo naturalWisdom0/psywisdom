@@ -1,0 +1,553 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>revive</title><link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; --title-bar-height:20px; }
+.mac-os-11 { --title-bar-height:28px; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 36px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li blockquote { margin: 1rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  .typora-export #write { break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  .is-mac table { break-inside: avoid; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+.MathJax_ref { fill: currentcolor; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none 0s ease 0s; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; margin-top: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+mark .md-meta { color: rgb(0, 0, 0); opacity: 0.3 !important; }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+}
+.md-diagram-panel .messageText { stroke: none !important; }
+.md-diagram-panel .start-state { fill: var(--node-fill); }
+.md-diagram-panel .edgeLabel rect { opacity: 1 !important; }
+.md-require-zoom-fix foreignobject { font-size: var(--mermaid-font-zoom); }
+
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+/* open-sans-regular - latin-ext_latin */
+  /* open-sans-italic - latin-ext_latin */
+    /* open-sans-700 - latin-ext_latin */
+    /* open-sans-700italic - latin-ext_latin */
+  html {
+    font-size: 16px;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+
+@media only screen and (min-width: 1400px) {
+	#write {
+		max-width: 1024px;
+	}
+}
+
+@media only screen and (min-width: 1800px) {
+	#write {
+		max-width: 1200px;
+	}
+}
+
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+
+/*@media print {
+    .typora-export h1,
+    .typora-export h2 {
+        border-bottom: none;
+        padding-bottom: initial;
+    }
+
+    .typora-export h1::after,
+    .typora-export h2::after {
+        content: "";
+        display: block;
+        height: 100px;
+        margin-top: -96px;
+        border-top: 1px solid #eee;
+    }
+}*/
+
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border-top: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    margin: 0;
+    padding: 6px 13px;
+}
+table td {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 6px 13px;
+}
+table th:first-child,
+table td:first-child {
+    margin-top: 0;
+}
+table th:last-child,
+table td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+.html-for-mac .context-menu {
+    --item-hover-bg-color: #E6F0FE;
+}
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+}
+
+.ty-preferences .window-content {
+    background-color: #fafafa;
+}
+
+.ty-preferences .nav-group-item.active {
+    color: white;
+    background: #999;
+}
+
+
+</style>
+</head>
+<body class='typora-export os-windows'>
+<div id='write'  class=''><p><span>这是我从重度双相障碍走出后，对自己历经数年痛苦挣扎摸索自救所得经验的总结。</span></p><p><span>因为知乎每篇回答的字数限制，不得不把这经验分拆成了几个回答；又因为每个用户对每个问题似乎只能作一个回答，所以只好再把几个回答分散放到几个不同问题中。所有回答的链接放在下面。</span></p><p><span>如果有想了解如何自救的朋友，建议您从第一篇开始，完整都看一下(不是营销，您看我都匿名了，是希望您了解完整思路)。这是我自己亲身经历的心得体会，但既然是总结，种种细节就不可能描写详尽周到。所以，如果您有什么具体疑问，或者只要您有什么想说的，都欢迎留言或私信讨论，我会尽可能回复。</span></p><p><span>0、</span><a href='https://www.zhihu.com/question/360687349/answer/2290243743'><span>双相障碍自救经验总结-缘起</span></a></p><p><strong><span>1、双相障碍自救经验总结-心理疾病既是客观疾病但也受主观影响</span></strong></p><p><span>2、</span><a href='https://www.zhihu.com/question/488777959/answer/3103478473'><span>双相障碍自救经验总结-自救三原则之系统化综合对治原则一</span></a></p><p><span>3、双相障碍自救经验总结-自救三原则之系统化综合对治原则二</span></p><p><span>提前说明一下，我的思路方法和网上常见应对抑郁症的理论实践有不太一致的地方。但我这是自己亲身经历验证过的心得，我认为那些不一致的地方是</span><strong><span>必要而有价值</span></strong><span>的，希望您不要读到有异于常论的地方就放弃了，请耐心读下去，我会一一说明为什么要不一样。</span></p><p><span>对治抑郁，我的思路方法概括来说是这样的：</span></p><p><strong><span>首先，我强调，患者主观能动性非常重要；</span></strong></p><p><span>其次，三个总体原则：</span></p><p><strong><span>一是系统化综合对治的原则，</span></strong></p><p><strong><span>二是顺其自然循序渐进的原则，</span></strong></p><p><strong><span>三是长期化持续改善原则</span></strong></p><p><span>最后，自救实践</span><strong><span>具体操作采取：观察、记录、分析、尝试、改进</span></strong><span>的方法，后面我会逐一展开讲述。</span></p><h2><a name="一心理疾病既是客观疾病但也受主观影响" class="md-header-anchor"></a><span>一、心理疾病既是客观疾病但也受主观影响</span></h2><p><strong><span>主观能动性很重要</span></strong><span>！回头看这数年的自救经历，我认为患者在治疗的过程中，可以而且应该发挥主观作用。这也是我</span><strong><span>自救方法的基础</span></strong><span>。</span></p><p><span>现在无论是心理医生还是患者，往往都会强调心理疾病也是一种实实在在的客观疾病，不是患者想好就可以好起来的。这话对不对呢？我认为，</span><strong><span>也对也不对</span></strong><span>，下面具体说明</span></p><h3><a name="一心理疾病确实是实实在在的客观疾病" class="md-header-anchor"></a><span>(一)、心理疾病确实是实实在在的客观疾病</span></h3><p><span>说它对，主要是因为，</span><strong><span>很多人尤其是父母长辈等老一代人，对心理疾病缺乏认识</span></strong><span>，不知道你那是患病了，就觉得你那是思想上有问题，怎么那么脆弱、矫情、懒惰、不上进、心眼儿小、事儿多？他们往往会鼓励你开朗点、大方点、坚强点，以为这有帮助。他们</span><strong><span>根本没有意识到心理疾病也是一种客观的疾病，而且不仅仅是心理精神上的疾病，往往还伴随有生理上的问题</span></strong><span>，例如内分泌失调、神经组织的变化等等；不了解</span><strong><span>心理疾病和感冒、外伤等生理疾病一样，是实实在在的疾病，那不是主观想摆脱就能摆脱得了的</span></strong><span>；他们不知道，</span><strong><span>当心理问题被诊断为某某&quot;症&quot;，就是因为单靠患者自己已经不能恢复健康了</span></strong><span>；他们也没有意识到，开朗、大方、坚强，这些是表现啊，这是果，不是因，不是手段和方法。</span></p><p><span>所以，作好科普，提升大众对心理疾病的认识，能让大家理解我们的真实情况，这能一定程度上改善我们周围的环境，也能让我们自己避免误解自己(很多患者，在没有从心理医生或其它渠道接触正确心理知识之前，也大多欠缺对心理疾病的正确认知)，摆脱不必要的自责、内疚、沮丧等情绪，减少心理压力。</span></p><p><span>这，当然是好事。</span></p><h3><a name="二合理发挥主观能动性对治愈心理疾病是很有价值的" class="md-header-anchor"></a><span>(二)、合理发挥主观能动性对治愈心理疾病是很有价值的</span></h3><p><span>说它不对，是因为这种说法只强调了一面。各种科普资料铺天盖地都在强调抑郁症是客观疾病，患者主观方面可以发挥作用的可能性却鲜有提及。而从我自救的实践经验来看，我觉得</span><strong><span>患者主观方面可以发挥的作用其实非常重要。</span></strong></p><p><span>甚至可以说，</span><strong><span>心理方面的疾病，要好起来，最终是靠患者自己，心理医生的帮助等，都是外来的辅助（指精神心理方面，至于生理方面，当然需要吃药和生活调整）。</span></strong></p><p><span>说明一下，这是我的个人观点。个人观点，当然是没经过严格学术研究证明的，但我相信这是正确的。因为，现在的心理疾病的医治，其实主要通过两方面的方法，一方面是通过生活调节加吃药加电击等物理治疗手段，作用于人的内分泌，影响神经活动，从而间接影响人的精神心理活动；另一方面是通过心理咨询方式，直接干预调节人的心理活动。而心理咨询对人心理的作用，其实</span><strong><span>医生只是外来的干涉源，真正的精神活动主体是患者自己，医生的干预最终必须要引动患者自己的精神心理活动</span></strong><span>才能发生作用，当然是辅助性的。</span></p><p><span>前面提到，当诊断为抑郁&quot;症&quot;、强迫&quot;症&quot;时，就是因为单靠患者自己已经不能解决问题了。这当然是泛论，我就是没看医生自己解决的，但我这个过程也是跌跌撞撞痛苦摸索着走过来的。所以，一定要说明，我是</span><strong><span>建议有了心理疾病，要去看医生</span></strong><span>的。相比自己摸索，他们能提供专业的知识和经验，帮你选择更有效的路径，以更小的代价走出来。但不是说，我们只能被动依赖医生，我们可以而且我也主张要发挥自己主观能动性，我们可以与医生相互配合实现更好更有效的治疗。其实，配合医生治疗，这个配合就是在发挥主观能动性啊。</span></p><p><span>只不过，我这方法中，“主观”可以发挥的作用更多一些，更积极一些。因为心理精神活动的主体是我们自己，对我们情绪心理等等感知最直接最真实的只有我们自己(实际上，直到今天，对抑郁症等心理疾病也没有生物学上的准确诊断手段），而能改变心理活动最直接最可能的也是我们自己。</span><strong><span>我们本来就是并且也应该是自己精神活动的主导</span></strong><span>。只是因为我们对自己太不了解，太缺少精神心理方面的知识，导致只能借助于医生的知识经验来帮助我们调整自己。</span></p><h3><a name="三发挥主观能动性首先是需要有意愿有动力要好起来" class="md-header-anchor"></a><span>(三)、发挥主观能动性首先是需要有意愿有动力要好起来</span></h3><p><span>可能对正常人来说很难理解，希望病情好起来不是很自然的事情吗？为什么还需要强调？但是，真正接触过心理患者的人应该知道，有很多患者都是缺少意愿的，有的患者自己都没意识到其实是自己就没想好起来。</span></p><p><span>我亲身经历过的心理体验就有多种。例如，一种是抑郁发作时，真的就没有心力做任何事情，包括期待希望；一种是经常极度绝望狂躁。而且情绪往往是恶性循环的，因为心理障碍，工作和生活中无法有明亮乐观的情绪，也没有积极向上的行动，于是也就不容易取得好的结果，于是对自己失望、沮丧、自责，于是心理问题加重，甚至进一步破罐子破摔。反复几轮下来，心理越来越灰暗，QTMD，就这样烂下去吧，CTMD，你个烂人，你就是不行，再使劲儿也不行.........</span></p><p><span>我了解到的还有很多种其它情形。例如，有人也许会因为愧疚，而不知不觉在心理上惩罚自己，觉得这样才可以原谅自己；例如，也许有人在心理上无意识地维持自己这种痛苦状态，使得自己很可怜，以为这样能让某些人良心不安，或者让自己觉得&quot;自己是个受害者&quot;；例如反反复复地失望，导致自己再也不敢抱任何期待了。等等等等，不一而足，这些情形，无一例外都在消磨着自己主动走出来的意愿和动力。</span></p><p><span>我是走出来后，回头分析自己和一些患者朋友的情形时，才逐渐明白，当时的自己根本没有意识到，那时候的自己</span><strong><span>其实已经习惯于心理障碍的状态了。</span></strong><span>某种意义上说，那种状态已经是自己的“心理舒适区”了。矛盾吧？明明非常痛苦，怎么会是心里舒适区？其实不矛盾。准确地说，</span><strong><span>维持当前已经习惯的状态（尽管这个状态是痛苦的状态）已经是一个“心理舒适区”，而作出改变是要耗费心力的，是可能带来痛苦和风险的，</span></strong><span>很可能耗费心力做了改变，也不会见到什么效果，这就很容易令人觉得受挫，觉得失望沮丧。所以心理上</span><strong><span>总是不知不觉地重新回到已经习惯的状态-就继续这样吧</span></strong><span>。实际上</span><strong><span>大多数正常人也是很害怕改变的</span></strong><span>（这真是很多人都没有意识到的一点，想想，你为什么不愿意轻易跳槽？有没有这方面的因素在里面？）。何况已经精疲力竭的患者呢？</span></p><p><span>害怕改变，可能是因为前面提到的对失败的焦虑，也可能就是对未知对不确定的莫名恐惧。</span></p><p><span>后面展开讲我的经验时，我会教大家一些切实可行的方法，来解决或者减轻这些问题，让我们可以来发挥自己的主观能动作用。</span></p><hr /><p><span>这是我历经痛苦从重度双相障碍走出后，对自己数年自救摸索出来的经验所作总结。</span></p><p><span>因为知乎每篇回答的字数限制，不得不把这总结的经验分拆成了几个回答；又因为每个用户对每个问题似乎只允许作一个回答，所以只好把几个回答再分散放到几个问题中。链接放在下面。</span></p><p><span>如果有想了解如何自救的朋友，建议您从第一篇开始，完整都看一下(不是营销，您看我都匿名了，是希望您了解完整思路)。这是我自己真实的亲身自救经历的心得体会，种种具体情形，其实不可能在总结中都周到地描写详尽，所以，如果您觉得有什么疑问，或者有什么想说的，欢迎留言或者私信讨论，我会尽可能予以回复。</span></p><p><span>0、</span><a href='https://www.zhihu.com/question/360687349/answer/2290243743'><span>双相障碍自救经验总结-缘起</span></a></p><p><span>1、双相障碍自救经验总结-心理疾病既是客观疾病但也受主观影响</span></p><p><span>2、</span><a href='https://www.zhihu.com/question/488777959/answer/3103478473'><strong><span>双相障碍自救经验总结-自救三原则之系统化综合对治原则一</span></strong></a></p><p><span>3、双相障碍自救经验总结-自救三原则之系统化综合对治原则二</span></p><hr /><p><span>不知道有没有人看。一直在整理自己思路，希望能写得条理一些。不过，发现努力要写得系统清楚时，逐渐成了说明文，干巴巴地枯燥且带有说教味儿.....实际上写回答的过程中，回顾当年的那些经历体验，心里波潮起伏，滋味万千</span></p><p><span>不管怎么样，我会坚持写出来，希望能帮助到有需要且愿意看的朋友。</span></p><h2><a name="二自救三原则" class="md-header-anchor"></a><span>二、自救三原则</span></h2><p><span>接下来说我自救方法的总体原则。我总结了三个原则：</span><strong><span>系统化综合对治原则、顺其自然循序渐进原则、长期持续改善原则</span></strong><span>。</span></p><h3><a name="一系统化综合对治原则" class="md-header-anchor"></a><span>(一)、系统化综合对治原则</span></h3><p><span>心理疾病，有些是由生理疾病引发的；心因性疾病中，有些是受突发变故剧烈冲击，精神受不了刺激而导致的。但更多心理疾病，是因为环境中众多因素的负面影响相互作用逐渐累积而最终致病的。致病原因复杂众多，其影响有大有小且可能相互纠葛。有的负面因素可能平时就知道是不利的，只是没办法或者没来得及去避免；而有的负面因素，可能平常根本就没意识到会导致如此严重后果，其负面影响被忽视至无视了。但实际上，即使你未察觉的情况下，这些因素仍在潜移默化地持续地影响着你，长期积累，等发病以后意识到了，已经来不及后悔了。</span></p><p><span>所以，我的经验是，</span><strong><span>要在早期尽量避免各种负面因素的影响</span></strong><span>。</span></p><p><span>既然致病因素众多，都对病情有影响，那么对治时，就不要指望有万能灵药，可以一针见效立马就能根治病情。无论病来时是如山倒还是如灰尘堆积，但病去时真的如抽丝。所以说，不要指望单纯心理治疗、吃药、电休克等物理治疗手段，也不要单纯指望患者自己想开点、咬咬牙、坚强点、豁达点等思想工作，不要单纯指望种种心理技巧，不要单纯指望环境的改善......总之，</span><strong><span>不要指望任何单一手段就能解决问题，而是需要对患者饮食、作息、学习、工作、娱乐、人际、锻炼、居住环境、观念等等一切可能的方面都要去尝试去作改变。</span></strong></p><p><span>既然各种负面因素影响复杂，互相纠葛，所以就不能单纯机械地去做简单地改变，而是要</span><strong><span>全面考虑，相互配合，综合系统对治。</span></strong></p><p><span>心理疾病，如果不能把致病因素的负面影响解决掉，那么即使通过医生的治疗治疗，可以一时达到不错效果，但</span><strong><span>只要负面影响仍在持续，那么疾病再次复发就必然可能性极大</span></strong><span>。所以，必须全面考虑各种负面影响，系统性地综合进行对治，才可能真正治愈自己的疾病。我把这称作</span><strong><span>系统化综合对治原则。</span></strong><span>下面逐一说明。</span></p><p><strong><span>1、饮食</span></strong></p><p><strong><span>尽量定时定量，营养均衡</span></strong></p><p><span>不要暴饮暴食，也不要饥一餐饱一餐；要平衡摄入各种营养，这才能支持身体稳定分泌各类激素。要适当清淡健康，多进食富含维生素、脂肪酸氨基酸、镁钙锌矿质等食物，如水果、蔬菜、深海鱼类等等；少进食辛辣刺激、烤炸、油腻、多盐等食物，少喝咖啡、可乐、红牛、酒类等饮料，少吸烟，因为会令人精神兴奋。</span></p><p><span>不少人对饮食对人的情绪影响认识的不到位。窦文涛曾在节目说过，他有一次对工作同事发脾气，过后自己也很后悔，后来回想了一下，可能根源在于自己没吃早饭导致情绪受了自己也没察觉到的影响。其实，分析一下，就知道确实是这样的，饥饿显然是一种负面感受，人的状态正常时，单纯这种负面感受不至于明显改变自己情绪，这种负面感受的影响没有被自己察觉到，但其影响就不存在了吗？其实存在，只是还没有突破阈值而已，没有发作出来而已。</span></p><p><strong><span>2、作息方面</span></strong></p><p><strong><span>尽量规律作息，保证睡眠时间</span></strong></p><p><span>作息影响人的精力，进而直接影响人的情绪状态，这是大家都能感受到的，不是很多人都有起床气吗？但是其对心理影响的严重性还是大多被轻视了。作息会显著影响人各种激素的分泌，持续作息不规律将导致内分泌失调，会严重影响人的情绪和精神状态。长期如此，甚至会造成永久生理伤害。众多心理患者都曾经有黑白颠倒作息不规律的经历，有睡眠不足的问题。所以，规律的作息，应该引起足够的重视。</span></p><p><span>关于失眠，这里不作讨论。我只指出一点，睡不着时，安心闭目养神，虽然不如睡眠，但也能达到一定的休息效果。越是对此焦虑，越是努力去采取各种手段，往往效果越不好。</span></p><p><strong><span>3、学习和工作</span></strong></p><p><span>二者合在一块儿说，有几点需要注意的。</span></p><p><strong><span>目标要合理</span></strong></p><p><span>过低的目标，不能激励自己，会令人失去动力；过高的目标，会给自己过大的压力，过大的压力，导致过于焦虑；目标过高，达不到时，会带来失落、沮丧等负面感受，进而害怕失败，加重压力和焦虑，形成恶性循环，长期如此，就对心理健康很不利。</span></p><p><span>现在社会，竞争激烈，压力过大是更普遍更严重的问题。</span></p><p><strong><span>强度要合理</span></strong></p><p><span>强度过大，尤其长期强度过大，会导致人过于疲劳，身心都得不到适当的休息。所以，应该注意工作学习安排的强度要合理，特别注意，不要长期持续熬夜加班。</span></p><p><span>强度合理，也包括节奏要合理，就是不要将任务挤压在一起，那等于是人为地在给自己制造压力。</span></p><p><span>家长要注意，不要给孩子过高的期望，避免造成孩子太大压力。这点对青少年患者来说，特别重要，心理学上来说，同一件事情给孩子造成的心理感受，严重受家长的影响，而且不止是嘴上态度哦，是内心真实态度。比如说，同样是打碎了个家具，家长很愤怒、完全漠视和注意了但更关心孩子有没有被伤着，这些不同表现对孩子心理造成的影响完全不同。</span></p><p><span>成年人对工作，要想开点，不给自己过高的压力，也要合理分析领导的要求，不必一味听从，要意识到，业绩高高低低都很正常，即使完不成工作，甚至搞砸了，也没什么大不了的，天真的塌不下来，大不了换份工作呗。换工作，即使丢工作，至少也死不了人，和健康相比，其他目标都应该靠后。</span></p><p><span>需要指出的是，对工作和学习任务</span><strong><span>有逆反情绪，甚至想躺平，这本身就是一种心理上的警报和自我防卫</span></strong><span>。要引起足够的重视，对学习工作做合理的调整。</span></p><p><strong><span>4、娱乐 要合理适度</span></strong></p><p><span>合理适度的娱乐能让人放松，带来愉悦心情，是要提倡的。但是一定要注意选择合适的娱乐类型和娱乐强度。</span></p><p><span>对于打游戏、刷网文、甚至包括浏览网页、追剧追星等等，如果不适度，很可能反倒会导致情绪和精神状态受负面影响。例如，沉迷于这些，昏天黑地，导致饮食和睡眠乃至人际关系都受到影响；例如，过于沉浸在虚拟世界中，大喜大悲，极度投入，当返回真实世界时，就会有空虚，失落等等感受。实际上，不合适的娱乐，已经不是娱乐了，而是一个类似于毒品的影响心理健康的负面因素（大多数玩游戏、追剧、追番、追网络小说的人其实多多少少都已经成瘾，只是没到重度，所以很多人对其负面影响予以足够重视，甚至一提负面影响就不以为然或者阴阳怪气地回怼）。</span></p><p><strong><span>5、人际关系</span></strong></p><p><strong><span>适当寻求和谐人际关系</span></strong></p><p><span>亲人朋友同学同事恋人邻里等等各种各样的人际关系，往往会直接影响人的情感和情绪，当然是重要的影响因素。和谐的人际有利于自己情绪和心理，带来开心、轻松、倍受鼓舞、自信、感激、平和等等等等；不和谐的人际，真的会带来各种各样的负面影响，沮丧、失落、生气、愤怒、怀疑、焦虑、急躁等等等等。</span></p><p><span>所以，寻求和谐的人际关系是合理的。</span></p><p><span>特别要提醒的是，人际关系，是需要双方共同维护的。当一段关系不和谐了，可以适当反思，但不必一直委屈自己讨好别人来维持表面的好关系（当然也不是让你只顾顺自己心意自己念头通达不顾别人，因为那也会带来人际的反噬，最终会带来负面反馈)，其实本来正常的人际关系，就应该是自然真诚，彼此体谅的，单方面的委屈和单方面的自私，都很难长远。所以，</span><strong><span>离开，有时候是一种智慧</span></strong><span>。</span></p><p><span>另外，对和谐人际关系的寻求也要适度。</span><strong><span>本质来说，人际关系也是外界影响，人最靠得住的还是自己内心的强大</span></strong><span>。</span><strong><span>应该避免自己的内心受外界影响过重</span></strong><span>，即使是令人喜乐的影响，也要避免受影响过重，因为能受喜乐的影响其实也意味着会受哀怒的影响。当然，也</span><strong><span>不能对人际关系和外来影响冷漠无感，对人际关系有正常体验和正常反应，表明了我们是一个人心理正常的人</span></strong><span>。</span></p><p><strong><span>6、锻炼 </span></strong></p><p><strong><span>尽量保证适当的锻炼</span></strong></p><p><span>适当的体育锻炼，大致上说，对人精神状态是有利的。因为身体生理状态健康，各方面机能正常，各种激素分泌正常，对人的精神心理方面也是有利的。有的人，锻炼起来，心思就慢慢或者很快地集中在锻炼上，情绪就会逐渐平静下来。有的人，全力投入运动之后，虽然身体疲乏，但出了一身汗，精神却很爽很痛快(很可能是刺激了多巴胺的分泌带来的)，甚至有的人会觉得挺迷恋这种感觉的。</span></p><p><span>但是，也要根据自己实际情况，注意锻炼的时机和方式。也许发病的时候，根本动都不想动，强行运动也可能成为一种负担压力（这个也不一定，有时候是虽然懒，但运动起来之后，心情就变好了。总之根据自己实际来吧）；要量力而为，过头了反倒可能带来负面影响。个人觉得散步就是个不错的锻炼方式。</span></p><p><strong><span>7、居住环境</span></strong><span> </span></p><p><span>要注意几个方面，一尽量选择安静，环境优美，空气好、视野好的小区和楼栋，但不要为了安静环境好就选偏僻无人、视野封闭的小区和楼栋。</span></p><p><span>最好选择南向、光照、隔音良好的房间。</span></p><p><strong><span>8、观念</span></strong></p><p><span>人有很多问题是来自于对某些观念的执着，也就是俗称的钻了牛角尖。注意哦，这些观念未必是错误的，只是可以不必那么执着。</span></p><p><span>有心理问题的人，很多都有观念执着的表现，我自己也曾有过。我后来分析过，发现，有两种原因特别容易导致这种问题。一个是，患病期间，人的感知可能会出偏差，例如，本来不严重甚至很正常的事情，在自己的感知里却觉得很严重（其实，正常人也存在很多这种情形，只是心理患者这方面更突出。比如说，有人就对不参加非强制性的团建活动也很纠结，但其实正常人都知道，非强制性的，不参加有什么呢？）。另外一个是，受自己的认知所限，对某些问题理解不清，形成了思想死扣，靠自己已经无法跳出了。例如妒忌心理，很多人都没有认识到，妒忌心理其实是好强、争胜的心理机制出问题了。</span></p><p><span>观念，以我的经验，靠认知的提升才是最有效的改变方式。</span></p><p><span>需要指出的是，观念的改变，单靠患者自己一般是办不到的，否则他们就不会陷入那状态了，这需要外来者给予帮助。有些问题，只要旁观的正常人给指出就可以了，例如上面举的团建例子；有的，则需要帮助者有能力帮助条分缕析分析出问题原因症结，并有方法可以打开死结，这往往需要是心理工作者。但不管是哪种人，都需要是患者信任的人，因为，只有信任，他们才会向你敞开心扉；更因为，只有信任，他们才会相信你的看法是客观的专业的，而不只是无用的安慰。</span></p><p><span>总之，我们在进行对治的时候，要</span><strong><span>对可能影响病情的</span><u><span>所有</span></u><span>因素，只要是自己能控制的部分，都尝试去做改善</span></strong><span>。尤其需要指出，有些因素可能对自己工作或生活很重要，觉得不能改。但是，那些因素再重要，如果已经是严重致病因素了，那它的重要性是不是应该被重新考虑一下了？请你自己也要意识到自己是个患者。</span></p><p><strong><span>单一因素的改变，未必会有明显效果，但种种改善措施长期综合作用下，就容易显出效果</span></strong><span>了。</span></p><p><span>以上，只是罗列我临时想到的一些因素。真实因素因人而异，千变万化，您也可以留言分享一下，您曾经意识到那些因素是需要改变的。咱们彼此提醒，互相帮助吧。</span></p><p><span>20230704记:</span></p><p><span>先把自救三原则的系统化综合对治原则发一部分出来，这部分内容比较多，后续会逐渐补充。</span></p><p><span>20230707记：</span></p><p><span>改了几天，今天把综合对治原则补写完整。</span></p><hr /><h3><a name="二顺其自然循序渐进原则" class="md-header-anchor"></a><span>(二)、顺其自然循序渐进原则</span></h3><p><span>这个是根本原则。</span></p><p><span>先说顺其自然，什么叫顺其自然？</span></p><p><span>然：...的样子。自：自己、自身、本来的，自来就有的。自然：就是事物自己本来的样子。这个本来的样子，不仅仅指样式，而是指事物具有的各种属性，和约束事物的各种内外规律。</span></p><p><span>顺，当然就是顺应，是顺势而为，是因势利导，是疏，不是堵。</span></p><p><span>所以，我</span><strong><span>所谓的顺其自然，第一重意思就是，要去顺应影响自己身心各种内外规律。</span></strong></p><p><span>人类千万年来生存于这个世界，世世代代地自然选择，已经使得我们无论生理还是心理都已经适应了这个世界，身心内部的运作已经形成与外部世界的环境契合的规律。这规律已经深深地刻在我们的基因里，让我们的行为顺应这种规律，我们的身心运转就不容易出问题。</span></p><p><span>同时，能在多变的自然界生存下来，也使得我们发展出了极强的环境适应能力。我们人类都在不知不觉地运用这种适应能力，来因应各种环境变化。比如说，我们可能因为各种原因饿几顿，少睡几个钟头，都没啥大影响。但是，运用这种适应能力，没什么问题。但长期如此，我们的身心一直被扭曲，那就可能导致与我们千万年来形成的身心规律冲突，而导致种种身心病情。</span></p><p><span>所以， 我们</span><strong><span>应该尽量顺应千百年来形成的身心运作规律，避免长期强行扭曲身心运作去做适应。</span></strong></p><p><span>我前面提到的可以改变的因素中，其中很多也是符合这种规律的，而且亲身经验证实，顺应规律就是相对不容易出问题。</span></p><p><span>所谓</span><strong><span>顺其自然，第二重意思就是，无论什么事情，尽力就好，对结果不要太期待，顺其自然就好。</span></strong></p><p><span>对结果的期待，无论是担心还是期望，都容易带来问题。期待满足，大喜过望，容易拉高自己开心的阈值，以后出现提不起劲来乃至抑郁情绪的可能就多一些；结果不如意，期待没有满足，容易导致失落。而在等待结果的过程中，过于焦虑，也会给自己带来过多的压力。</span></p><p><span>心理患者的朋友，应该对此更有体会。</span></p><p><span>我前面提到系统化综合对治原则中，一再提到，不要对某单个因素的改变带来的效果有期待。</span></p><p><strong><span>降低心理期待，是减轻情绪出问题的很重要的技巧。</span></strong></p><p><span>就我的经验来说，确实不是单纯某一方面因素的改变，就能一下子有明显效果的。</span></p><p><span>也因此，我们很容易就清楚，</span><strong><span>对于病情的改善，要循序渐进</span></strong><span>，不要指望一口吃个胖子。想一口吃个胖子的结果就是失望。而且，过于剧烈的改变，其实可能带来相反的效果。比如说，长期吸烟、长期玩游戏看小说的人，贸然剧烈改变，会带来戒断效应的。</span></p><p><span>这个原则，写的比较少，但在我的经验中，真的是非常重要的原则。这个原则其实决定了其它原则，并贯穿于整个自救的过程。</span></p><p><span>需要特别指出的是，之所以总结出本原则，是因为我在实践中发现，对于自救，要避免有强迫心理，并不是必须要把自己想到的所有方面都绝对改过，才会有作用。在我自救的经验中，最好是顺应自己身心状态的自然，能改什么就先改什么，循序渐进地去改。不要对单独具体的改变行为的结果有期待，最终见效果是长期系统化调整的结果，某些改变效果不明显，或者效果有反复，这都是有可能的，但长期的趋势是明确的。</span></p><h3><a name="三长期持续改善原则" class="md-header-anchor"></a><span>(三)、长期持续改善原则</span></h3><p><span>长期持续改善原则，实际上，我们理解了顺其自然循序渐进原则，自然就能理解需要长期持续改善。</span></p><p><span>我们的身心问题的形成大多冰冻三尺非一日之寒，那么病情改善，也不要指望立马见效。需要在我们的生活中，慢慢地，长期地，持续地，渐进地去做改善。其影响也会慢慢地，不知不觉地发生作用。春雨润物，细水长流，日不见其功，但某一天，你可能忽然意识到，原来自己的状态已经好多了。先从自己容易改变的事情做起，慢慢做起，养成习惯，日久自见其功。</span></p><p><span>因此，不要半途而废，对长期的最终效果是可以有信心的。我是经过四五年的改变，才最终走出来的。当然，我是完全靠自己摸索改变走出来的，有人指导，有人辅助，可能用的时间不必这么久，经历的痛苦也不必那么彻骨。但总之是需要长期的改善调整。</span></p><h2><a name="三具体操作实践" class="md-header-anchor"></a><span>三、具体操作实践</span></h2><p><span>有了自救的意愿和意识，理解了自救的总体原则，那么怎么具体操作实践呢？我个人采取的方式是：观察、记录、分析、尝试、改进。</span></p><p><span>观察</span></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h2><a name="四一些可能有用的具体心理技巧" class="md-header-anchor"></a><span>四、一些可能有用的具体心理技巧</span></h2><p>&nbsp;</p><p>&nbsp;</p></div>
+</body>
+</html>
